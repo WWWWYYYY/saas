@@ -16,7 +16,7 @@ public class MultiTenantIdentifierResolver implements CurrentTenantIdentifierRes
      */
     @Override
     public String resolveCurrentTenantIdentifier() {
-        return "default";
+        return Optional.ofNullable(ThreadTenantUtil.getTenant()).orElse("default");
     }
 
     @Override

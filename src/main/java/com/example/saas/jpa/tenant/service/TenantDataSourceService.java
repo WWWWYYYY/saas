@@ -119,6 +119,10 @@ public class TenantDataSourceService {
                 dataSource=genDataSource(dataSourceInfo);
             }
             tenantLiquibaseService.initDatabaseBySpringLiquibase(dataSource);
+        }finally {
+            if (dataSource!=null){
+                TenantDataSourceService.DATA_SOURCE_MAP.put(dataSourceInfo.getTenantCode(),dataSource);
+            }
         }
     }
 
