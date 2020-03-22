@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="now()" dbms="mysql"/>
+    <property name="autoIncrement" value="true"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity TenantDataSourceInfo.
+    -->
+    <changeSet id="20181217015250-1" author="jhipster">
+        <createTable tableName="tenant_data_source_info">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="url" type="varchar(255)" remarks="连接url">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="jhi_database" type="varchar(128)" remarks="数据库名称">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="username" type="varchar(64)" remarks="用户名">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="jhi_password" type="varchar(128)" remarks="密码">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="tenant_code" type="varchar(128)" remarks="租户编码">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="jdbc_driver" type="varchar(255)" remarks="连接驱动">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="server_name" type="varchar(64)" remarks="服务名">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="status" type="integer" remarks="状态">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="gmt_create" type="datetime" remarks="创建时间">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="gmt_modify" type="datetime" remarks="修改时间">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="delete_status" type="integer" remarks="删除标志">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="jhi_type" type="varchar(16)" remarks="数据库类型">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <dropDefaultValue tableName="tenant_data_source_info" columnName="gmt_create" columnDataType="datetime"/>
+        <dropDefaultValue tableName="tenant_data_source_info" columnName="gmt_modify" columnDataType="datetime"/>
+    </changeSet>
+    <changeSet id="20200321213" author="wangyi">
+        <addColumn tableName="tenant_data_source_info">
+            <column name="is_delete" type="Integer" remarks="是否删除">
+                <constraints nullable="true" />
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="202021321321" author="wangyi">
+        <dropColumn tableName="tenant_data_source_info" columnName="is_delete"></dropColumn>
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>
